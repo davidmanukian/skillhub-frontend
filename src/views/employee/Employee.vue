@@ -212,7 +212,6 @@
                       return-object
                       v-on:keyup.enter="addSkill(skill)"
                       open-on-clear
-                      @update:modelValue="addSkill(skill)"
                     ></v-combobox>
                   </v-row>
                   <v-row no-gutters justify="space-between" align="center" v-for="selectedSkill in selectedSkillsEdit"

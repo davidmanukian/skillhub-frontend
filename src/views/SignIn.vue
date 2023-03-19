@@ -12,7 +12,7 @@
             <v-row no-gutters class="mt-2" justify="center">
               <v-col cols="auto">
                 <p class="text-subtitle-1">New to Project? <a class="text-subtitle-1" style="text-decoration: none"
-                                                              href="#">Sing up</a></p>
+                                                              href="/signup">Sing up</a></p>
               </v-col>
             </v-row>
           </v-card-title>

@@ -6,7 +6,7 @@
           <v-col cols="auto">
             <v-btn color="primary"
                    variant="outlined"
-                   @click="newProjectDialog = !newProjectDialog">Create new Project
+                   @click="openProjectAddingDialog">Create new Project
             </v-btn>
             <v-dialog v-model="newProjectDialog" max-width="600">
               <v-card>
@@ -67,9 +67,11 @@
                   <p class="text-h6">{{ project.name }}</p>
                 </v-card-title>
                 <v-card-subtitle>
-                  <span class="text-center" v-for="skill of project.skills" :key="skill">
+                  <v-row no-gutters>
+                  <v-col cols="auto" class="text-center mx-1 my-1" v-for="skill of project.skills" :key="skill">
                     <v-chip color="primary">{{ skill }}</v-chip>
-                  </span>
+                  </v-col>
+                  </v-row>
                 </v-card-subtitle>
                 <v-card-actions>
                   <v-btn
@@ -88,7 +90,8 @@
               <v-chip
                 :style="index === 0 ? 'color: #3a86ff' : index === 1 ? 'color: #ffc300' : index === 2 ? 'color: #ff6b6b' : ''">
                 {{ employee.coefficient }}
-              </v-chip> <span
+              </v-chip>
+              <span
                 :style="index === 0 ? 'color: #3a86ff' : index === 1 ? 'color: #ffc300' : index === 2 ? 'color: #ff6b6b' : ''">{{
                   employee.firstName
                 }} {{ employee.lastName }}</span>
@@ -139,6 +142,7 @@ const createNewProject = () => {
     axiosAuth.post("/project", data)
       .then(e => {
         fetchAllProjects()
+        newProjectDialog.value = !newProjectDialog.value
       })
       .catch(e => {
         console.log(e)
@@ -180,6 +184,21 @@ const fetchBestMatched = (project) => {
   axiosAuth.post("/employee/perfectMatch", data)
     .then(e => {
       project.employees = e.data
+      console.log(e.data)
+    })
+    .catch(e => console.log(e))
+}
+
+const openProjectAddingDialog = () => {
+  newProjectDialog.value = !newProjectDialog.value
+  fetchAllSkills()
+}
+
+const fetchAllSkills = () => {
+  axiosAuth.get("employee/skills")
+    .then(e => {
+      console.log(e.data)
+      allAvailableSkills.value = e.data
     })
     .catch(e => console.log(e))
 }
